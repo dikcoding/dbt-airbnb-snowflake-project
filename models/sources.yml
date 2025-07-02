@@ -6,13 +6,22 @@ sources:
     tables:
       - name: listings
         identifier: raw_listings
-        
+        columns:
+          - name: room_type
+            tests:
+              - dbt_expectations.expect_column_distinct_count_to_equal:
+                  value: 4
+          - name: price
+            tests:
+              - dbt_expectations.expect_column_values_to_match_regex:
+                  regex: "^\\\\$[0-9][0-9\\\\.]+$"
+
       - name: hosts
         identifier: raw_hosts
-        
+
       - name: reviews
         identifier: raw_reviews
         loaded_at_field: date
         freshness:
-          warn_after: {count: 7, period: day}   # Warning setelah 7 hari
-          error_after: {count: 30, period: day} # Error setelah 30 hari
+          warn_after: { count: 7, period: day } # Warning setelah 7 hari
+          error_after: { count: 30, period: day } # Error setelah 30 hari
