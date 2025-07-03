@@ -37,3 +37,6 @@ models:
       +materialized: table
     src:
       +materialized: ephemeral
+
+vars:
+  user_name: "YOUR_USERNAME"
